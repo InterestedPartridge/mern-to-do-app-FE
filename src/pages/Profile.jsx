@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useEffect } from "react";
 import axios from "axios";
-import { Context, server } from "./main";
+import { Context, server } from "../main";
 
 const Profile = () => {
   const { setUser, isAuthenticated, setIsAuthenticated, setLoading } = useContext(Context);
