@@ -2,20 +2,44 @@ import React, { useContext } from "react";
 import { Context } from "../main";
 import Loader from "../components/Loader";
 import { Navigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { useContext, useEffect } from "react";
+import axios from "axios";
+import { Context, server } from "./main";
 
 const Profile = () => {
-  const { isAuthenticated, loading, user } = useContext(Context);
+  const { setUser, isAuthenticated, setIsAuthenticated, setLoading } = useContext(Context);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`${server}/users/me`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setUser(res.data.user);
+        setIsAuthenticated(true);
+        setLoading(false);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        setUser({});
+        setIsAuthenticated(false);
+        setLoading(false);
+      });
+  }, []);
 
   if (!isAuthenticated) return <Navigate to={"/login"} />;
 
   const profileContainerStyle = {
-    margin: "20px",
-    padding: "20px",
-    border: "1px solid #ccc",
-    borderRadius: "5px",
-    maxWidth: "400px",
-    textAlign: "center",
-    backgroundColor: "#f7f7f7",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "100vh",
+    background: "#f7f7f7",
+    padding: "20px", // Add some padding for better spacing
+    boxSizing: "border-box", // Include padding in the total element size
   };
 
   const h1Style = {
@@ -29,12 +53,24 @@ const Profile = () => {
     color: "#666",
   };
 
+  // Responsive styles using media queries
+  const responsiveStyles = {
+    h1Style: {
+      fontSize: "32px",
+    },
+    pStyle: {
+      fontSize: "20px",
+    },
+  };
+
   return loading ? (
-    <Loader />
+    <div style={profileContainerStyle}>
+      <Loader />
+    </div>
   ) : (
     <div style={profileContainerStyle}>
-      <h1 style={h1Style}>{user?.name}</h1>
-      <p style={pStyle}>{user?.email}</p>
+      <h1 style={{ ...h1Style, ...responsiveStyles.h1Style }}>{user?.name}</h1>
+      <p style={{ ...pStyle, ...responsiveStyles.pStyle }}>{user?.email}</p>
     </div>
   );
 };
