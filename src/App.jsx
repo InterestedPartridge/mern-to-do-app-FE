@@ -25,10 +25,10 @@ function App() {
         setLoading(false);
       })
       .catch((error) => {
+        toast.error(error.response.data.message);
         setUser({});
         setIsAuthenticated(false);
         setLoading(false);
-        toast.error(error.response.data.message);
       });
   }, []);
 
