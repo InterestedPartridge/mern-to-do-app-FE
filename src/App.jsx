@@ -27,6 +27,7 @@ function App() {
         setUser({});
         setIsAuthenticated(false);
         setLoading(false);
+        toast.error(error.response.data.message);
       });
   }, []);
 
