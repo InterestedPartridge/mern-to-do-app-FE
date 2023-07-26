@@ -98,28 +98,3 @@ $color4: lavender;
     outline: none;
   }
 }
-
-// Responsive Media Queries
-@media screen and (max-width: 767px) {
-  // Mobile styles
-  body {
-    font-size: 16px;
-  }
-  // Adjust other styles as needed
-}
-
-@media screen and (min-width: 768px) and (max-width: 991px) {
-  // Tablet styles
-  body {
-    font-size: 18px;
-  }
-  // Adjust other styles as needed
-}
-
-@media screen and (min-width: 992px) {
-  // Desktop styles
-  body {
-    font-size: 20px;
-  }
-  // Adjust other styles as needed
-}
