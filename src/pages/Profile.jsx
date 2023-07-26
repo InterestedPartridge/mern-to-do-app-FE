@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import { Context } from "../main";
 import Loader from "../components/Loader";
 import { Navigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { Context, server } from "./main";
 
